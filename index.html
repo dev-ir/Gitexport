@@ -15,6 +15,7 @@
       --light: #f8fafc;
       --gray: #94a3b8;
       --success: #10b981;
+      --card-bg: rgba(30, 41, 59, 0.7);
     }
     
     * {
@@ -31,7 +32,7 @@
       padding: 2rem 1rem;
       line-height: 1.6;
       position: relative;
-      padding-bottom: 60px;
+      padding-bottom: 80px;
     }
     
     .container {
@@ -51,10 +52,6 @@
       justify-content: center;
       gap: 0.5rem;
       margin-bottom: 0.5rem;
-    }
-    
-    .logo img {
-      height: 40px;
     }
     
     h1 {
@@ -119,49 +116,104 @@
       box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
     }
     
-    .results-container {
-      background: rgba(15, 23, 42, 0.5);
-      backdrop-filter: blur(10px);
-      border-radius: 12px;
-      padding: 1.5rem;
-      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-      animation: fadeIn 0.8s ease-out;
+    /* کارت‌های پیشنهادی */
+    .suggestions-section {
+      margin: 2rem 0;
     }
     
-    .repo-card {
-      background: rgba(30, 41, 59, 0.5);
-      border-radius: 8px;
-      padding: 1.2rem;
-      margin-bottom: 1rem;
-      transition: all 0.3s ease;
-      border-left: 3px solid transparent;
-    }
-    
-    .repo-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
-      border-left: 3px solid var(--primary);
-      background: rgba(30, 41, 59, 0.8);
-    }
-    
-    .repo-header {
+    .section-header {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-bottom: 0.5rem;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
     }
     
-    .repo-title {
-      font-size: 1.2rem;
+    .section-title {
+      font-size: 1.5rem;
       color: var(--light);
-      text-decoration: none;
       display: flex;
       align-items: center;
       gap: 0.5rem;
     }
     
+    .refresh-btn {
+      background: rgba(59, 130, 246, 0.1);
+      color: #60a5fa;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+    
+    .refresh-btn:hover {
+      background: rgba(59, 130, 246, 0.2);
+    }
+    
+    .cards-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .repo-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(148, 163, 184, 0.1);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    
+    .repo-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      border-color: rgba(59, 130, 246, 0.3);
+    }
+    
+    .card-header {
+      margin-bottom: 1rem;
+    }
+    
+    .repo-title {
+      font-size: 1.1rem;
+      color: var(--light);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
     .repo-title:hover {
       color: #60a5fa;
+    }
+    
+    .repo-owner {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+    
+    .owner-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+    }
+    
+    .repo-desc {
+      color: var(--gray);
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+      flex-grow: 1;
     }
     
     .repo-stats {
@@ -169,6 +221,7 @@
       gap: 1rem;
       color: var(--gray);
       font-size: 0.9rem;
+      margin-bottom: 1rem;
     }
     
     .repo-stat {
@@ -177,24 +230,29 @@
       gap: 0.3rem;
     }
     
-    .repo-desc {
-      color: var(--gray);
-      margin-bottom: 0.8rem;
-    }
-    
     .repo-topics {
       display: flex;
       flex-wrap: wrap;
       gap: 0.5rem;
-      margin-top: 0.8rem;
+      margin-top: auto;
     }
     
     .topic {
       background: rgba(59, 130, 246, 0.1);
       color: #60a5fa;
-      padding: 0.3rem 0.6rem;
+      padding: 0.3rem 0.8rem;
       border-radius: 50px;
       font-size: 0.8rem;
+    }
+    
+    /* نتایج جستجو */
+    .results-container {
+      background: rgba(15, 23, 42, 0.5);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 0.8s ease-out;
     }
     
     .pagination {
@@ -262,7 +320,7 @@
       left: 0;
       right: 0;
       text-align: center;
-      padding: 1rem;
+      padding: 1.5rem;
       color: var(--gray);
       font-size: 0.9rem;
       border-top: 1px solid rgba(148, 163, 184, 0.2);
@@ -273,6 +331,7 @@
       font-weight: bold;
     }
     
+    /* انیمیشن‌ها */
     @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
@@ -294,6 +353,18 @@
       }
     }
     
+    @keyframes cardEnter {
+      from { 
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to { 
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* رسپانسیو */
     @media (max-width: 768px) {
       h1 {
         font-size: 1.8rem;
@@ -308,15 +379,8 @@
         justify-content: center;
       }
       
-      .repo-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-      }
-      
-      .repo-stats {
-        width: 100%;
-        justify-content: space-between;
+      .cards-container {
+        grid-template-columns: 1fr;
       }
       
       .footer {
@@ -352,12 +416,32 @@
     </div>
     
     <div id="results">
-      <div class="empty-state">
-        <div class="empty-icon">
-          <i class="fas fa-search"></i>
+      <div class="suggestions-section" id="suggestions">
+        <div class="section-header">
+          <h2 class="section-title">
+            <i class="fas fa-star"></i>
+            مخازن پیشنهادی
+          </h2>
+          <button class="refresh-btn" onclick="loadSuggestedRepos()">
+            <i class="fas fa-sync-alt"></i>
+            بروزرسانی
+          </button>
         </div>
-        <h3>چیزی برای جستجو وارد کنید</h3>
-        <p>برای شروع جستجو، نام پروژه یا موضوع مورد نظر خود را وارد نمایید</p>
+        <div class="cards-container" id="suggested-repos"></div>
+      </div>
+      
+      <div class="suggestions-section">
+        <div class="section-header">
+          <h2 class="section-title">
+            <i class="fas fa-random"></i>
+            مخازن تصادفی
+          </h2>
+          <button class="refresh-btn" onclick="loadRandomRepos()">
+            <i class="fas fa-sync-alt"></i>
+            بروزرسانی
+          </button>
+        </div>
+        <div class="cards-container" id="random-repos"></div>
       </div>
     </div>
     
@@ -371,13 +455,23 @@
   <script>
     let currentPage = 1;
     let isLoading = false;
+    const popularTopics = ['react', 'vue', 'angular', 'node', 'python', 'javascript', 'typescript', 
+                         'machine-learning', 'deep-learning', 'docker', 'kubernetes', 'terraform'];
+    const popularRepos = [
+      'facebook/react', 'vuejs/vue', 'angular/angular', 'nodejs/node',
+      'python/cpython', 'microsoft/vscode', 'tensorflow/tensorflow',
+      'kubernetes/kubernetes', 'docker/compose', 'facebook/react-native'
+    ];
 
-    // Load query from URL if exists
+    // Load data when page loads
     window.onload = () => {
       const query = getQueryParam('q');
       if (query) {
         document.getElementById("searchInput").value = query;
         searchRepos();
+      } else {
+        loadSuggestedRepos();
+        loadRandomRepos();
       }
       
       // Add event listener for Enter key
@@ -399,6 +493,132 @@
       history.pushState(null, '', '?' + params.toString());
     }
 
+    // Load suggested popular repos
+    async function loadSuggestedRepos() {
+      const container = document.getElementById("suggested-repos");
+      container.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+      
+      try {
+        // Fetch multiple popular repos
+        const repos = await Promise.all(
+          popularRepos.slice(0, 6).map(repo => 
+            fetch(`https://api.github.com/repos/${repo}`).then(res => res.json())
+          )
+        );
+        
+        displayRepoCards(repos, container);
+      } catch (error) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon">
+              <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <p>خطا در دریافت مخازن پیشنهادی</p>
+          </div>
+        `;
+      }
+    }
+
+    // Load random popular repos
+    async function loadRandomRepos() {
+      const container = document.getElementById("random-repos");
+      container.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+      
+      try {
+        // Select a random popular topic
+        const randomTopic = popularTopics[Math.floor(Math.random() * popularTopics.length)];
+        const url = `https://api.github.com/search/repositories?q=topic:${randomTopic}&sort=stars&order=desc&per_page=6`;
+        const res = await fetch(url);
+        
+        if (!res.ok) throw new Error('خطا در دریافت داده‌ها');
+        
+        const data = await res.json();
+        displayRepoCards(data.items, container, randomTopic);
+      } catch (error) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon">
+              <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <p>خطا در دریافت مخازن تصادفی</p>
+          </div>
+        `;
+      }
+    }
+
+    // Display repos in card format
+    function displayRepoCards(repos, container, topic = null) {
+      container.innerHTML = '';
+      
+      if (!repos || repos.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon">
+              <i class="fas fa-folder-open"></i>
+            </div>
+            <p>${topic ? `هیچ مخزنی با موضوع ${topic} یافت نشد` : 'هیچ مخزنی یافت نشد'}</p>
+          </div>
+        `;
+        return;
+      }
+      
+      repos.forEach((repo, index) => {
+        if (!repo) return;
+        
+        const repoCard = document.createElement("div");
+        repoCard.className = "repo-card";
+        repoCard.style.animation = `cardEnter 0.5s ease-out ${index * 0.1}s both`;
+        
+        // Format date
+        const updatedAt = new Date(repo.updated_at);
+        const formattedDate = updatedAt.toLocaleDateString('fa-IR');
+        
+        // Create topics list (max 3 topics)
+        let topicsHTML = '';
+        if (repo.topics && repo.topics.length > 0) {
+          topicsHTML = `
+            <div class="repo-topics">
+              ${repo.topics.slice(0, 3).map(topic => `
+                <span class="topic">${topic}</span>
+              `).join('')}
+            </div>
+          `;
+        }
+        
+        repoCard.innerHTML = `
+          <div class="card-header">
+            <a href="${repo.html_url}" target="_blank" class="repo-title">
+              <i class="fas fa-book"></i>
+              ${repo.name}
+            </a>
+            <div class="repo-owner">
+              <img src="${repo.owner?.avatar_url || ''}" class="owner-avatar" alt="Owner">
+              ${repo.owner?.login || 'ناشناس'}
+            </div>
+          </div>
+          <p class="repo-desc">${repo.description || 'بدون توضیحات'}</p>
+          <div class="repo-stats">
+            <span class="repo-stat" title="ستاره‌ها">
+              <i class="fas fa-star"></i>
+              ${repo.stargazers_count?.toLocaleString('fa-IR') || '۰'}
+            </span>
+            <span class="repo-stat" title="فورک‌ها">
+              <i class="fas fa-code-branch"></i>
+              ${repo.forks_count?.toLocaleString('fa-IR') || '۰'}
+            </span>
+            <span class="repo-stat" title="آخرین بروزرسانی">
+              <i class="fas fa-clock"></i>
+              ${formattedDate}
+            </span>
+          </div>
+          ${topicsHTML}
+        `;
+        
+        container.appendChild(repoCard);
+      });
+    }
+
+    // Search functionality
     async function searchRepos(page = 1) {
       const query = document.getElementById("searchInput").value.trim();
       if (!query || isLoading) return;
@@ -406,19 +626,15 @@
       setQueryParam('q', query);
       currentPage = page;
       
-      // Show loading state
+      // Hide suggestions and show loading
+      document.getElementById("suggestions").style.display = 'none';
       showLoading();
       
       try {
         const perPage = 10;
         const url = `https://api.github.com/search/repositories?q=${encodeURIComponent(query)}+in:name,description,topics&sort=stars&order=desc&page=${page}&per_page=${perPage}`;
 
-        const headers = {
-          // 'Authorization': 'Bearer YOUR_GITHUB_TOKEN',
-          'Accept': 'application/vnd.github.v3+json'
-        };
-
-        const res = await fetch(url, { headers });
+        const res = await fetch(url);
         
         if (!res.ok) {
           throw new Error(res.status === 403 ? 'محدودیت نرخ درخواست. لطفاً稍后再试' : 'خطا در دریافت داده‌ها');
@@ -501,36 +717,39 @@
         if (repo.topics && repo.topics.length > 0) {
           topicsHTML = `
             <div class="repo-topics">
-              ${repo.topics.slice(0, 5).map(topic => `
+              ${repo.topics.slice(0, 3).map(topic => `
                 <span class="topic">${topic}</span>
               `).join('')}
-              ${repo.topics.length > 5 ? `<span class="topic">+${repo.topics.length - 5}</span>` : ''}
             </div>
           `;
         }
         
         repoCard.innerHTML = `
-          <div class="repo-header">
+          <div class="card-header">
             <a href="${repo.html_url}" target="_blank" class="repo-title">
               <i class="fas fa-book"></i>
               ${repo.full_name}
             </a>
-            <div class="repo-stats">
-              <span class="repo-stat" title="ستاره‌ها">
-                <i class="fas fa-star"></i>
-                ${repo.stargazers_count.toLocaleString('fa-IR')}
-              </span>
-              <span class="repo-stat" title="فورک‌ها">
-                <i class="fas fa-code-branch"></i>
-                ${repo.forks_count.toLocaleString('fa-IR')}
-              </span>
-              <span class="repo-stat" title="آخرین بروزرسانی">
-                <i class="fas fa-clock"></i>
-                ${formattedDate}
-              </span>
+            <div class="repo-owner">
+              <img src="${repo.owner?.avatar_url || ''}" class="owner-avatar" alt="Owner">
+              ${repo.owner?.login || 'ناشناس'}
             </div>
           </div>
           <p class="repo-desc">${repo.description || 'بدون توضیحات'}</p>
+          <div class="repo-stats">
+            <span class="repo-stat" title="ستاره‌ها">
+              <i class="fas fa-star"></i>
+              ${repo.stargazers_count.toLocaleString('fa-IR')}
+            </span>
+            <span class="repo-stat" title="فورک‌ها">
+              <i class="fas fa-code-branch"></i>
+              ${repo.forks_count.toLocaleString('fa-IR')}
+            </span>
+            <span class="repo-stat" title="آخرین بروزرسانی">
+              <i class="fas fa-clock"></i>
+              ${formattedDate}
+            </span>
+          </div>
           ${topicsHTML}
         `;
         
