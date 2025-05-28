@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>جستجوی هوشمند مخازن گیت‌هاب | DVHOST CLOUD</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/vazir-font/30.1.0/font-face.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --dark: #0f172a;
+      --darker: #020617;
+      --light: #f8fafc;
+      --gray: #94a3b8;
+      --success: #10b981;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: Vazir, sans-serif;
+      background: linear-gradient(135deg, var(--darker), var(--dark));
+      color: var(--light);
+      min-height: 100vh;
+      padding: 2rem 1rem;
+      line-height: 1.6;
+      position: relative;
+      padding-bottom: 60px;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      animation: fadeIn 0.8s ease-out;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .logo img {
+      height: 40px;
+    }
+    
+    h1 {
+      font-size: 2.2rem;
+      background: linear-gradient(to right, #3b82f6, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+    }
+    
+    .subtitle {
+      color: var(--gray);
+      font-size: 1.1rem;
+    }
+    
+    .search-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+      gap: 0.5rem;
+      animation: slideUp 0.6s ease-out;
+    }
+    
+    .search-input {
+      width: 100%;
+      max-width: 500px;
+      padding: 0.8rem 1.2rem;
+      font-size: 1rem;
+      border: 2px solid #334155;
+      border-radius: 50px;
+      background: rgba(15, 23, 42, 0.7);
+      color: var(--light);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .search-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.3);
+    }
+    
+    .search-btn {
+      padding: 0.8rem 1.5rem;
+      background: linear-gradient(to right, var(--primary), #4f46e5);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .search-btn:hover {
+      background: linear-gradient(to right, var(--primary-hover), #4338ca);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    }
+    
+    .results-container {
+      background: rgba(15, 23, 42, 0.5);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 0.8s ease-out;
+    }
+    
+    .repo-card {
+      background: rgba(30, 41, 59, 0.5);
+      border-radius: 8px;
+      padding: 1.2rem;
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+      border-left: 3px solid transparent;
+    }
+    
+    .repo-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+      border-left: 3px solid var(--primary);
+      background: rgba(30, 41, 59, 0.8);
+    }
+    
+    .repo-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    
+    .repo-title {
+      font-size: 1.2rem;
+      color: var(--light);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .repo-title:hover {
+      color: #60a5fa;
+    }
+    
+    .repo-stats {
+      display: flex;
+      gap: 1rem;
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+    
+    .repo-stat {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    
+    .repo-desc {
+      color: var(--gray);
+      margin-bottom: 0.8rem;
+    }
+    
+    .repo-topics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.8rem;
+    }
+    
+    .topic {
+      background: rgba(59, 130, 246, 0.1);
+      color: #60a5fa;
+      padding: 0.3rem 0.6rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+    }
+    
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+    
+    .page-btn {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      background: rgba(30, 41, 59, 0.7);
+      color: var(--light);
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .page-btn:hover {
+      background: var(--primary);
+      transform: translateY(-2px);
+    }
+    
+    .page-btn.active {
+      background: var(--primary);
+      font-weight: bold;
+    }
+    
+    .loading {
+      display: flex;
+      justify-content: center;
+      padding: 2rem;
+    }
+    
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(59, 130, 246, 0.2);
+      border-top: 4px solid var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 2rem;
+      color: var(--gray);
+    }
+    
+    .empty-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: #334155;
+    }
+    
+    .footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      text-align: center;
+      padding: 1rem;
+      color: var(--gray);
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(148, 163, 184, 0.2);
+    }
+    
+    .brand {
+      color: #60a5fa;
+      font-weight: bold;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes slideUp {
+      from { 
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to { 
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      .search-container {
+        flex-direction: column;
+      }
+      
+      .search-btn {
+        width: 100%;
+        justify-content: center;
+      }
+      
+      .repo-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+      
+      .repo-stats {
+        width: 100%;
+        justify-content: space-between;
+      }
+      
+      .footer {
+        position: static;
+        margin-top: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <i class="fas fa-code-branch" style="font-size: 2rem; color: #3b82f6;"></i>
+        <h1>جستجوی هوشمند مخازن گیت‌هاب</h1>
+      </div>
+      <p class="subtitle">پروژه‌های متن باز را کشف کنید و از آنها الهام بگیرید</p>
+    </header>
+    
+    <div class="search-container">
+      <input 
+        type="text" 
+        id="searchInput" 
+        class="search-input" 
+        placeholder="نام پروژه، موضوع یا توضیحات (مثال: react, machine learning...)" 
+        autocomplete="off"
+        autofocus
+      >
+      <button onclick="searchRepos()" class="search-btn">
+        <i class="fas fa-search"></i>
+        جستجو
+      </button>
+    </div>
+    
+    <div id="results">
+      <div class="empty-state">
+        <div class="empty-icon">
+          <i class="fas fa-search"></i>
+        </div>
+        <h3>چیزی برای جستجو وارد کنید</h3>
+        <p>برای شروع جستجو، نام پروژه یا موضوع مورد نظر خود را وارد نمایید</p>
+      </div>
+    </div>
+    
+    <div class="pagination" id="pagination"></div>
+  </div>
+
+  <footer class="footer">
+    <p>تمامی حقوق محفوظ است © <span class="brand">DVHOST_CLOUD</span> - ۱۴۰۲</p>
+  </footer>
+
+  <script>
+    let currentPage = 1;
+    let isLoading = false;
+
+    // Load query from URL if exists
+    window.onload = () => {
+      const query = getQueryParam('q');
+      if (query) {
+        document.getElementById("searchInput").value = query;
+        searchRepos();
+      }
+      
+      // Add event listener for Enter key
+      document.getElementById("searchInput").addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          searchRepos();
+        }
+      });
+    }
+
+    function getQueryParam(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
+    }
+
+    function setQueryParam(key, value) {
+      const params = new URLSearchParams(window.location.search);
+      params.set(key, value);
+      history.pushState(null, '', '?' + params.toString());
+    }
+
+    async function searchRepos(page = 1) {
+      const query = document.getElementById("searchInput").value.trim();
+      if (!query || isLoading) return;
+      
+      setQueryParam('q', query);
+      currentPage = page;
+      
+      // Show loading state
+      showLoading();
+      
+      try {
+        const perPage = 10;
+        const url = `https://api.github.com/search/repositories?q=${encodeURIComponent(query)}+in:name,description,topics&sort=stars&order=desc&page=${page}&per_page=${perPage}`;
+
+        const headers = {
+          // 'Authorization': 'Bearer YOUR_GITHUB_TOKEN',
+          'Accept': 'application/vnd.github.v3+json'
+        };
+
+        const res = await fetch(url, { headers });
+        
+        if (!res.ok) {
+          throw new Error(res.status === 403 ? 'محدودیت نرخ درخواست. لطفاً稍后再试' : 'خطا در دریافت داده‌ها');
+        }
+        
+        const data = await res.json();
+        displayResults(data.items, page, data.total_count);
+      } catch (error) {
+        showError(error.message);
+      } finally {
+        isLoading = false;
+      }
+    }
+
+    function showLoading() {
+      isLoading = true;
+      const container = document.getElementById("results");
+      container.innerHTML = `
+        <div class="loading">
+          <div class="spinner"></div>
+        </div>
+      `;
+    }
+
+    function showError(message) {
+      const container = document.getElementById("results");
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-icon">
+            <i class="fas fa-exclamation-triangle"></i>
+          </div>
+          <h3>خطا در دریافت داده‌ها</h3>
+          <p>${message}</p>
+          <button onclick="searchRepos(currentPage)" class="search-btn" style="margin-top: 1rem;">
+            <i class="fas fa-sync-alt"></i>
+            تلاش مجدد
+          </button>
+        </div>
+      `;
+      
+      document.getElementById("pagination").innerHTML = "";
+    }
+
+    function displayResults(repos, page, total) {
+      const container = document.getElementById("results");
+      const pagination = document.getElementById("pagination");
+      
+      if (!repos || repos.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon">
+              <i class="fas fa-folder-open"></i>
+            </div>
+            <h3>نتیجه‌ای یافت نشد</h3>
+            <p>پروژه‌ای با مشخصات جستجوی شما پیدا نشد. عبارت جستجو را تغییر دهید</p>
+          </div>
+        `;
+        pagination.innerHTML = "";
+        return;
+      }
+      
+      container.innerHTML = "";
+      pagination.innerHTML = "";
+      
+      // Create results container with animation
+      const resultsContainer = document.createElement("div");
+      resultsContainer.className = "results-container";
+      
+      repos.forEach((repo, index) => {
+        const repoCard = document.createElement("div");
+        repoCard.className = "repo-card";
+        repoCard.style.animationDelay = `${index * 0.1}s`;
+        
+        // Format date
+        const updatedAt = new Date(repo.updated_at);
+        const formattedDate = updatedAt.toLocaleDateString('fa-IR');
+        
+        // Create topics list
+        let topicsHTML = '';
+        if (repo.topics && repo.topics.length > 0) {
+          topicsHTML = `
+            <div class="repo-topics">
+              ${repo.topics.slice(0, 5).map(topic => `
+                <span class="topic">${topic}</span>
+              `).join('')}
+              ${repo.topics.length > 5 ? `<span class="topic">+${repo.topics.length - 5}</span>` : ''}
+            </div>
+          `;
+        }
+        
+        repoCard.innerHTML = `
+          <div class="repo-header">
+            <a href="${repo.html_url}" target="_blank" class="repo-title">
+              <i class="fas fa-book"></i>
+              ${repo.full_name}
+            </a>
+            <div class="repo-stats">
+              <span class="repo-stat" title="ستاره‌ها">
+                <i class="fas fa-star"></i>
+                ${repo.stargazers_count.toLocaleString('fa-IR')}
+              </span>
+              <span class="repo-stat" title="فورک‌ها">
+                <i class="fas fa-code-branch"></i>
+                ${repo.forks_count.toLocaleString('fa-IR')}
+              </span>
+              <span class="repo-stat" title="آخرین بروزرسانی">
+                <i class="fas fa-clock"></i>
+                ${formattedDate}
+              </span>
+            </div>
+          </div>
+          <p class="repo-desc">${repo.description || 'بدون توضیحات'}</p>
+          ${topicsHTML}
+        `;
+        
+        resultsContainer.appendChild(repoCard);
+      });
+      
+      container.appendChild(resultsContainer);
+      
+      // Create pagination
+      const totalPages = Math.min(10, Math.ceil(total / 10));
+      if (totalPages > 1) {
+        // Previous button
+        if (page > 1) {
+          const prevBtn = document.createElement("button");
+          prevBtn.className = "page-btn";
+          prevBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+          prevBtn.onclick = () => searchRepos(page - 1);
+          pagination.appendChild(prevBtn);
+        }
+        
+        // Page numbers
+        for (let i = 1; i <= totalPages; i++) {
+          const btn = document.createElement("button");
+          btn.className = `page-btn ${i === page ? 'active' : ''}`;
+          btn.textContent = i.toLocaleString('fa-IR');
+          btn.onclick = () => searchRepos(i);
+          pagination.appendChild(btn);
+        }
+        
+        // Next button
+        if (page < totalPages) {
+          const nextBtn = document.createElement("button");
+          nextBtn.className = "page-btn";
+          nextBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+          nextBtn.onclick = () => searchRepos(page + 1);
+          pagination.appendChild(nextBtn);
+        }
+      }
+    }
+  </script>
+</body>
+</html>
